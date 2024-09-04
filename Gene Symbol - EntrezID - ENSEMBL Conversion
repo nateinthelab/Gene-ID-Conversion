@@ -1,0 +1,22 @@
+
+## create object of list of gene/ID/symbol etc. to be converted
+genes <- rownames(limma_DEG)
+
+#make sure appropriate genomes are loaded
+library(org.Mm.eg.db)
+library(org.Hs.eg.db)
+
+#add gene list to be converted
+require(org.Hs.eg.db)
+mapIds(
+  org.Hs.eg.db,
+  keys = genes,
+  column = 'ENTREZID',
+  keytype = 'SYMBOL')
+
+#results of all gene symbols, entrezID, and ensembl
+select(
+  org.Hs.eg.db,
+  keys = genes,
+  column = c('SYMBOL', 'ENTREZID', 'ENSEMBL'),
+  keytype = 'SYMBOL')
